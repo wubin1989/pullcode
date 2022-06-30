@@ -1,0 +1,43 @@
+{
+  "name": "pullcode",
+  "version": "1.1.2",
+  "description": "",
+  "bin": {
+    "pullcode": "dist/index.js"
+  },
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "ts-node src/test/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.0.2",
+    "@types/axios": "^0.14.0",
+    "@types/ejs": "^3.1.1",
+    "@types/extract-zip": "^2.0.1",
+    "@types/lodash-es": "^4.17.6",
+    "@types/unzip": "^0.1.1",
+    "axios": "^0.24.0",
+    "commander": "^8.0.0",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.8",
+    "extract-zip": "^2.0.1",
+    "form-data": "^4.0.0",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "node-fetch": "^2.6.1",
+    "oas-validator": "^5.0.8",
+    "openapi-types": "^9.1.0",
+    "swagger2openapi": "^7.0.8",
+    "typescript": "^4.3.4",
+    "unzip": "^0.1.11",
+    "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0"
+  }
+}
