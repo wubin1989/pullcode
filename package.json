@@ -11,7 +11,7 @@
     "test": "ts-node src/test/index.ts"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.2",
     "@types/axios": "^0.14.0",
