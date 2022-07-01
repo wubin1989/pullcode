@@ -248,6 +248,7 @@
       "GetLogoutResp": {
         "title": "GetLogoutResp",
         "type": "object",
+        "description": "成功返回OK",
         "properties": {
           "data": {
             "type": "string",

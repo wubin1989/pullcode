@@ -28,8 +28,8 @@ export class OpenRoute {
     if (operation.summary) {
       strings.push(...operation.summary.split(/[^\S ]/));
     }
-    if (operation.description) {
-      strings.push(...operation.description.split(/[^\S ]/));
+    if (operation.description && operation.description.trim()) {
+      strings.push(...operation.description.trim().split(/[^\S ]/));
     }
     openRoute.docs = strings;
     if (operation["x-method-name"]) {
@@ -49,7 +49,7 @@ export class OpenRoute {
       requestBody = requestBody as OpenAPIV3.RequestBodyObject
       const content = requestBody.content;
       const openProperty = new OpenProperty();
-      openProperty.doc = requestBody.description || '';
+      openProperty.doc = requestBody.description && requestBody.description.trim();
       if (content) {
         if (content["application/json"]) {
           const mediaType = content["application/json"];
@@ -92,7 +92,7 @@ export class OpenRoute {
             const urlSearchParams = properties && Object.keys(properties).map(propName => {
               const property = new OpenProperty();
               const propSchema = properties[propName] as OpenAPI3Schema;
-              property.doc = propSchema.description;
+              property.doc = propSchema.description && propSchema.description.trim();
               property.in = 'requestBody';
               property.name = propName;
               property.setTypeSchema(propSchema)
@@ -128,7 +128,7 @@ export class OpenRoute {
       openProperty.name = para.name;
       openProperty.setTypeSchema(para.schema as OpenAPI3Schema);
       openProperty.required = !!para.required;
-      openProperty.doc = para.description;
+      openProperty.doc = para.description && para.description.trim();
       return openProperty;
     });
     if (openProperties && openProperties.length) {
@@ -184,7 +184,7 @@ export class OpenRoute {
             openProperty.name = 'data';
             openProperty.in = 'responseBody';
             openProperty.setTypeSchema(mediaType.schema as OpenAPI3Schema);
-            openProperty.doc = okResponse.description;
+            openProperty.doc = okResponse.description && okResponse.description.trim();
             openRoute.respData = openProperty;
           }
         }

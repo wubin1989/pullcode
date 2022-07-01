@@ -9,20 +9,20 @@ const OpenEnum_1 = require("./OpenEnum");
 class OpenType {
     toCode() {
         return ejs.render(`{
-      <% properties.forEach(function(property){ %>
-        <% property.docs.forEach(function(doc){ %>
-          <% if(doc){ %>
-            // <%- doc %>
-          <% } %>
-        <% }); %>
-        <%- property.name %><% if(!property.required){ %>?<% } %>: <%- property.type %>;
-      <% }); %>
-    }`, { properties: this.properties });
+      <%_ properties.forEach(function(property){ -%>
+        <%_ property.docs.forEach(function(doc){ -%>
+          <%_ if(doc){ -%>
+    // <%- doc %>
+          <%_ } -%>
+        <%_ }) -%>
+    <%- property.name %><% if(!property.required){ %>?<% } %>: <%- property.type %>;
+      <%_ }) -%>
+  }`, { properties: this.properties });
     }
     static fromSchema({ schema, enumAs, typeName = '' }) {
         const openType = new OpenType();
         openType.name = typeName;
-        openType.doc = schema.description || '';
+        openType.doc = schema.description && schema.description.trim();
         const openProperties = [];
         const openEnumTypes = [];
         const required = schema.required;
@@ -31,7 +31,7 @@ class OpenType {
             openProperty.docs = [];
             openProperty.name = prop;
             const value = schema.properties[prop];
-            const desc = (value.description || '').trim();
+            const desc = value.description && value.description.trim();
             if (desc) {
                 openProperty.doc = desc;
                 openProperty.docs.push(desc);

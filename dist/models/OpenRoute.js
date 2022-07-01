@@ -17,8 +17,8 @@ class OpenRoute {
         if (operation.summary) {
             strings.push(...operation.summary.split(/[^\S ]/));
         }
-        if (operation.description) {
-            strings.push(...operation.description.split(/[^\S ]/));
+        if (operation.description && operation.description.trim()) {
+            strings.push(...operation.description.trim().split(/[^\S ]/));
         }
         openRoute.docs = strings;
         if (operation["x-method-name"]) {
@@ -39,7 +39,7 @@ class OpenRoute {
             requestBody = requestBody;
             const content = requestBody.content;
             const openProperty = new OpenProperty_1.OpenProperty();
-            openProperty.doc = requestBody.description || '';
+            openProperty.doc = requestBody.description && requestBody.description.trim();
             if (content) {
                 if (content["application/json"]) {
                     const mediaType = content["application/json"];
@@ -85,7 +85,7 @@ class OpenRoute {
                         const urlSearchParams = properties && Object.keys(properties).map(propName => {
                             const property = new OpenProperty_1.OpenProperty();
                             const propSchema = properties[propName];
-                            property.doc = propSchema.description;
+                            property.doc = propSchema.description && propSchema.description.trim();
                             property.in = 'requestBody';
                             property.name = propName;
                             property.setTypeSchema(propSchema);
@@ -122,7 +122,7 @@ class OpenRoute {
             openProperty.name = para.name;
             openProperty.setTypeSchema(para.schema);
             openProperty.required = !!para.required;
-            openProperty.doc = para.description;
+            openProperty.doc = para.description && para.description.trim();
             return openProperty;
         });
         if (openProperties && openProperties.length) {
@@ -179,7 +179,7 @@ class OpenRoute {
                         openProperty.name = 'data';
                         openProperty.in = 'responseBody';
                         openProperty.setTypeSchema(mediaType.schema);
-                        openProperty.doc = okResponse.description;
+                        openProperty.doc = okResponse.description && okResponse.description.trim();
                         openRoute.respData = openProperty;
                     }
                 }
