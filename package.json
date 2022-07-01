@@ -7,12 +7,15 @@
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "build": "tsc",
+    "build": "tsc && cp ./src/generators/*.ejs ./dist/generators",
     "test": "ts-node src/test/index.ts",
     "lint": "ejslint src/generators/*.ejs"
   },
-  "author": "",
-  "license": "MIT",
+  "author": {
+    "name": "wubin1989",
+    "email": "328454505@qq.com",
+    "url": "https://github.com/wubin1989"
+  },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.2",
     "@types/axios": "^0.14.0",
@@ -40,5 +43,14 @@
     "@types/node": "^15.12.5",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wubin1989/pullcode.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wubin1989/pullcode/issues"
+  },
+  "homepage": "https://github.com/wubin1989/pullcode"
 }

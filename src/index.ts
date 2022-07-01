@@ -3,10 +3,13 @@
 import axios, { AxiosRequestConfig } from "axios";
 import * as fs from "fs";
 import * as path from "path"
-import * as FormData from 'form-data';
 import { Command } from 'commander';
 import * as converter from 'swagger2openapi';
 import { OpenAPIV2, OpenAPIV3 } from "openapi-types";
+import { ServiceGenerator } from "./generators/ServiceGenerator";
+import { OpenServer } from "./models/OpenServer";
+import { TypesGenerator } from "./generators/TypesGenerator";
+import { BizServiceGenerator } from './generators/BizServiceGenerator';
 
 require('dotenv').config();
 
@@ -28,12 +31,28 @@ if (!output) {
     output = path.resolve(process.cwd(), output)
 }
 
-function genCode(api: string, callback: () => void) {
-    const apidoc = path.join(process.cwd(), ".openapi3.json")
-    fs.writeFileSync(apidoc, api);
-    console.log(apidoc)
+function genCode(document: OpenAPIV3.Document) {
+    fs.mkdir(output, { recursive: true }, function (err) {
+        if (err) {
+            throw err
+        }
+        const openServer = OpenServer.convert(document)
+        const bizServiceGenerator = new BizServiceGenerator()
+        bizServiceGenerator.outputDir = output
+        bizServiceGenerator.generate();
 
+        const typesGenerator = new TypesGenerator()
+        typesGenerator.outputDir = output
+        typesGenerator.types = openServer.types;
+        typesGenerator.generate();
 
+        openServer.services && openServer.services.forEach(function (service) {
+            const serviceGenerator = new ServiceGenerator()
+            serviceGenerator.outputDir = output
+            serviceGenerator.service = service;
+            serviceGenerator.generate();
+        })
+    })
 }
 
 if (options.url) {
@@ -42,7 +61,7 @@ if (options.url) {
     const username = parsedUrl.username
     const password = parsedUrl.password
     const option: AxiosRequestConfig = {}
-    if(username !== '' || password !== '') {
+    if (username !== '' || password !== '') {
         option.auth = {
             username,
             password
@@ -57,26 +76,17 @@ if (options.url) {
             _options.source = options.url;
             _options.patch = true;
             _options.resolve = true;
-            try {
-                converter.convert(obj, _options, function (err, ret) {
-                    if (err) {
-                        throw err
-                    }
-                    genCode(JSON.stringify(ret.openapi), () => {
-                        console.log("code generated")
-                    })
-                });
-            }
-            catch (ex) {
-                console.log(ex);
-            }
+            converter.convert(obj, _options, function (err, ret) {
+                if (err) {
+                    throw err
+                }
+                genCode(ret.openapi)
+            });
         } else {
-            genCode(JSON.stringify(obj), () => {
-                console.log("code generated")
-            })
+            genCode(obj as OpenAPIV3.Document)
         }
     })
-    .catch(function (err) {
-        console.log(err)
-    })
+        .catch(function (err) {
+            console.log(err)
+        })
 }
