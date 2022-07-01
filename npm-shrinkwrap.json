@@ -12,14 +12,11 @@
         "@apidevtools/swagger-parser": "^10.0.2",
         "@types/axios": "^0.14.0",
         "@types/ejs": "^3.1.1",
-        "@types/extract-zip": "^2.0.1",
         "@types/lodash-es": "^4.17.6",
-        "@types/unzip": "^0.1.1",
         "axios": "^0.24.0",
         "commander": "^8.0.0",
         "dotenv": "^10.0.0",
         "ejs": "^3.1.8",
-        "extract-zip": "^2.0.1",
         "form-data": "^4.0.0",
         "lodash": "^4.17.21",
         "lodash-es": "^4.17.21",
@@ -28,7 +25,6 @@
         "openapi-types": "^9.1.0",
         "swagger2openapi": "^7.0.8",
         "typescript": "^4.3.4",
-        "unzip": "^0.1.11",
         "yaml": "^1.10.2"
       },
       "bin": {
@@ -1910,8 +1906,7 @@
       "integrity": "sha512-RQul5wEfY7BjWm0sYY86cmUN/pcXWGyVxWX93DFFJvcrxax5zKlieLwA3T77xJGwNcZW0YW6CYG70p1m8xPFmA=="
     },
     "@types/extract-zip": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmmirror.com/@types/extract-zip/-/extract-zip-2.0.1.tgz",
+      "version": "https://registry.npmmirror.com/@types/extract-zip/-/extract-zip-2.0.1.tgz",
       "integrity": "sha512-Rvy84OCUrbGquSMH2a2ifbHB3CEu95LguiihLf0gc4uFaZ7psB6Khq+s8a7rsPGztSlxihu1om7+ZVxBh8iJcg==",
       "requires": {
         "extract-zip": "*"
@@ -1942,8 +1937,7 @@
       "integrity": "sha512-qjd88DrCxupx/kJD5yQgZdcYKZKSIGBVDIBE1/LTGcNm3d2Np/jxojkdePDdfnBHJc5W7vSMpbJ1aB7p/Py69A=="
     },
     "@types/unzip": {
-      "version": "0.1.1",
-      "resolved": "https://registry.npmmirror.com/@types/unzip/-/unzip-0.1.1.tgz",
+      "version": "https://registry.npmmirror.com/@types/unzip/-/unzip-0.1.1.tgz",
       "integrity": "sha512-skD6Um7Pk2l7y+tVOKSgOA9vXViyhk/qJYmr17Ek4Uw3Zgo/DWPScphTPztPbApTIngyYSJnkEW87xrHzRYaew==",
       "requires": {
         "@types/node": "*"
@@ -3047,8 +3041,7 @@
       "integrity": "sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ=="
     },
     "unzip": {
-      "version": "0.1.11",
-      "resolved": "https://registry.npmmirror.com/unzip/-/unzip-0.1.11.tgz",
+      "version": "https://registry.npmmirror.com/unzip/-/unzip-0.1.11.tgz",
       "integrity": "sha512-Dvxd7bj2RcfbM+AbNfx0Ufqvk7Kl4YGeAQlEGn9+glDQz1HFxeeRjBStxi/DfIvgutn6hbC4yMc1rEo3x+dmVQ==",
       "requires": {
         "binary": ">= 0.3.0 < 1",
