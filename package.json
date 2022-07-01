@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc",
-    "test": "ts-node src/test/index.ts"
+    "test": "ts-node src/test/index.ts",
+    "lint": "ejslint src/generators/*.ejs"
   },
   "author": "",
   "license": "MIT",

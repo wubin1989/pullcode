@@ -14,10 +14,10 @@ export class OpenRoute {
   public pathParams: OpenProperty[] | undefined;
   public queryParams: OpenProperty[] | undefined;
   public urlSearchParams: OpenProperty[] | undefined;
-  // pathParams + queryParams + urlSearchParams
   public allParams: OpenProperty[] | undefined;
-  // TODO
   public headerParams: OpenProperty[] | undefined;
+  public defaultHeaders: { [key: string]: string } | undefined;
+  public hasHeaders: boolean = false;
   public docs: string[] | undefined;
 
   public static of(endpoint: string, httpMethod: string, operation: OpenAPI3Operation, components: OpenAPIV3.ComponentsObject): OpenRoute {
@@ -127,31 +127,42 @@ export class OpenRoute {
       openProperty.in = para.in;
       openProperty.name = para.name;
       openProperty.setTypeSchema(para.schema as OpenAPI3Schema);
-      para.required !== undefined && (openProperty.required = para.required)
+      openProperty.required = !!para.required;
       openProperty.doc = para.description;
       return openProperty;
     });
     if (openProperties && openProperties.length) {
       const pathParams = [] as OpenProperty[];
       const queryParams = [] as OpenProperty[];
+      const headerParams = [] as OpenProperty[];
       for (let i = 0; i < openProperties.length; i++) {
         const openProperty = openProperties[i];
         if (openProperty.in === "path") {
           pathParams.push(openProperty);
         } else if (openProperty.in === "query") {
           queryParams.push(openProperty);
+        } else if (openProperty.in === "header") {
+          headerParams.push(openProperty);
         }
       }
       openRoute.pathParams = pathParams;
       openRoute.queryParams = queryParams;
+      openRoute.headerParams = headerParams;
       openRoute.allParams = openProperties;
     }
 
     if (openRoute.urlSearchParams && openRoute.urlSearchParams.length) {
       if (!openRoute.allParams) {
-        openRoute.allParams = []
+        openRoute.allParams = [];
       }
       openRoute.allParams.push(...openRoute.urlSearchParams);
+      if (!openRoute.defaultHeaders) {
+        openRoute.defaultHeaders = {};
+      }
+      openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+    if ((openRoute.headerParams && openRoute.headerParams.length) || openRoute.defaultHeaders) {
+      openRoute.hasHeaders = true;
     }
     const responses = operation.responses;
     if (responses) {

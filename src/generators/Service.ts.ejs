@@ -57,6 +57,20 @@ export class <%- name %> extends BizService {
       <% if(!urlSearchParam.required){ %>params.<%- urlSearchParam.name %> !== undefined && <%_ } %>urlSearchParams.append('<%- urlSearchParam.name %>', '' + params.<%- urlSearchParam.name %>);
       <%_ }) -%>
     <%_ } -%>
+    <%_ if(route.hasHeaders){ -%>
+      const headers = {
+        <%_ if(route.defaultHeaders){ -%>
+          <%_ for(let prop in route.defaultHeaders){ -%>
+        '<%- prop %>': '<%- route.defaultHeaders[prop] %>',
+          <%_ } -%>
+        <%_ } -%>
+        <%_ if(route.headerParams && route.headerParams.length){ -%>
+          <%_ route.headerParams.forEach(function(headerParam){ -%>
+        '<%- headerParam.name %>': params.<%- headerParam.name %>,
+          <%_ }) -%>
+        <%_ } -%>
+      }
+    <%_ } -%>
       return this.getAxios().<%- _.toLower(route.httpMethod) %>(`<%- route.endpoint %>`,
         <%_ if(route.reqBody){ -%>
           <%- route.reqBody.name %>,
@@ -73,10 +87,8 @@ export class <%- name %> extends BizService {
             <%_ }) -%>
             },
             <%_ } -%>
-            <%_ if(route.urlSearchParams && route.urlSearchParams.length){ -%>
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
+            <%_ if(route.hasHeaders){ -%>
+            headers,
             <%_ } -%>
             <%_ if(route.respData.type === "Blob"){ -%>
             responseType: 'blob',
