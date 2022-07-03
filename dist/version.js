@@ -1,5 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.version = void 0;
-exports.version = 'v1.1.4';
+exports.version = 'v1.1.5';
 //# sourceMappingURL=version.js.map

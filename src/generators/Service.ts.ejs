@@ -50,7 +50,7 @@ export class <%- name %> extends BizService {
     <%_ }) -%>
     },
   <%_ } -%>
-  ) :Promise<<%- route.respData.type === "Blob" ? 'any' : route.respData.type %>> {
+  ): Promise<<%- route.respData.type === "Blob" ? 'any' : route.respData.type %>> {
     <%_ if(route.urlSearchParams && route.urlSearchParams.length){ -%>
       const urlSearchParams = new URLSearchParams();
       <%_ route.urlSearchParams.forEach(function(urlSearchParam){ -%>
@@ -58,7 +58,7 @@ export class <%- name %> extends BizService {
       <%_ }) -%>
     <%_ } -%>
     <%_ if(route.hasHeaders){ -%>
-      const headers = {
+      const headers: Record<string, string> = {
         <%_ if(route.defaultHeaders){ -%>
           <%_ for(let prop in route.defaultHeaders){ -%>
         '<%- prop %>': '<%- route.defaultHeaders[prop] %>',
@@ -66,10 +66,21 @@ export class <%- name %> extends BizService {
         <%_ } -%>
         <%_ if(route.headerParams && route.headerParams.length){ -%>
           <%_ route.headerParams.forEach(function(headerParam){ -%>
-        '<%- headerParam.name %>': params.<%- headerParam.name %>,
+            <%_ if(headerParam.required){ -%>
+        '<%- headerParam.name %>': '' + params.<%- headerParam.name %>,
+            <%_ } -%>
           <%_ }) -%>
         <%_ } -%>
       }
+      <%_ if(route.headerParams && route.headerParams.length){ -%>
+        <%_ route.headerParams.forEach(function(headerParam){ -%>
+          <%_ if(!headerParam.required){ -%>
+      if (params.<%- headerParam.name %> !== undefined) {
+        headers['<%- headerParam.name %>'] = '' + params.<%- headerParam.name %>
+      }
+          <%_ } -%>
+        <%_ }) -%>
+      <%_ } -%>
     <%_ } -%>
       return this.getAxios().<%- _.toLower(route.httpMethod) %>(`<%- route.endpoint %>`,
         <%_ if(route.reqBody){ -%>
