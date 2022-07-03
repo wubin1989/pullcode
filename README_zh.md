@@ -2,6 +2,23 @@
 
 pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持Swagger 2和OpenAPI 3(aka Swagger 3)。  
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+### TOC
+
+- [特性](#%E7%89%B9%E6%80%A7)
+- [第三方依赖](#%E7%AC%AC%E4%B8%89%E6%96%B9%E4%BE%9D%E8%B5%96)
+- [安装](#%E5%AE%89%E8%A3%85)
+- [命令可选项](#%E5%91%BD%E4%BB%A4%E5%8F%AF%E9%80%89%E9%A1%B9)
+- [代码生成规则](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99)
+- [用法](#%E7%94%A8%E6%B3%95)
+- [快速上手](#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B)
+- [更多示例代码](#%E6%9B%B4%E5%A4%9A%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81)
+  - [transform参数处理请求错误](#transform%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E9%94%99%E8%AF%AF)
+  - [请求接口](#%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 特性
 
 1. 完全的typescript类型支持。依据Swagger2/OpenAPI3文档里的各接口路径前缀分组生成Service类，以及与RESTful接口一一对应的类方法，同时生成所有的对象类型的入参和出参的typescript类型。
