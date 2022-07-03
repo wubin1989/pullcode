@@ -14,7 +14,7 @@ pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端
 - [用法](#%E7%94%A8%E6%B3%95)
 - [快速上手](#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B)
 - [更多示例代码](#%E6%9B%B4%E5%A4%9A%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81)
-  - [transform参数处理请求错误](#transform%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E9%94%99%E8%AF%AF)
+  - [拦截请求错误](#%E6%8B%A6%E6%88%AA%E8%AF%B7%E6%B1%82%E9%94%99%E8%AF%AF)
   - [请求接口](#%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -126,7 +126,7 @@ export default BizService;
 ![petstore](./petstore.png)
 
 ## 更多示例代码
-### transform参数处理请求错误
+### 拦截请求错误
 
 ```javascript
 import type { AxiosResponse } from 'axios';
