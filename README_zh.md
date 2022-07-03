@@ -106,6 +106,8 @@ export default BizService;
 
 请参考完整示例：[pullcode-quickstart](https://github.com/wubin1989/pullcode/tree/master/examples/pullcode-quickstart)
 
+![petstore](./petstore.png)
+
 ## 更多示例代码
 ### transform参数处理请求错误
 
