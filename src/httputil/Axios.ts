@@ -91,16 +91,12 @@ export class VAxios {
    * @description: Interceptor configuration
    */
   private setupInterceptors() {
-    const transform = this.getTransform();
-    if (!transform) {
-      return;
-    }
     const {
       requestInterceptors,
       requestInterceptorsCatch,
       responseInterceptors,
       responseInterceptorsCatch,
-    } = transform;
+    } = this.getTransform() || {};
 
     // Request interceptor configuration processing
     this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
