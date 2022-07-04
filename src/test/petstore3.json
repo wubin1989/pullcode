@@ -186,9 +186,9 @@
               "type": "string",
               "default": "available",
               "enum": [
-                "available",
-                "pending",
-                "sold"
+                "AVAILABLE_STATUS",
+                "PENDING_STATUS",
+                "SOLD_STATUS"
               ]
             }
           }
@@ -1146,9 +1146,9 @@
             "type": "string",
             "description": "pet status in the store",
             "enum": [
-              "available",
-              "pending",
-              "sold"
+              "AVAILABLE_STATUS",
+              "PENDING_STATUS",
+              "SOLD_STATUS"
             ]
           }
         },

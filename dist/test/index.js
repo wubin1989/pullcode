@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
-const data = require("./usersvc_openapi3.json");
-// import * as data from './petstore3.json'
+// import * as data from './usersvc_openapi3.json'
+const data = require("./petstore3.json");
 const OpenServer_1 = require("../models/OpenServer");
 const TypesGenerator_1 = require("../generators/TypesGenerator");
 const openServer = OpenServer_1.OpenServer.convert(data);

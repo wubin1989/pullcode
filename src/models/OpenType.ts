@@ -57,7 +57,7 @@ export class OpenType {
         } else {
           const type = openType.name + _.upperFirst(prop) + "Enum";
           openProperty.type = type;
-          const voEnumList: OpenEnum[] = value.enum.map(item => new OpenEnum(_.upperCase(item), item));
+          const voEnumList: OpenEnum[] = value.enum.map(item => new OpenEnum(_.toUpper(item), item));
           openEnumTypes.push(new OpenEnumType(voEnumList, type));
         }
       } else {
