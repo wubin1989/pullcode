@@ -199,3 +199,7 @@ petService.getPetFindByStatus({
 })
 </script>
 ```
+
+## Sister Projects
+
+- [go-doudou](https://github.com/unionj-cloud/go-doudou): OpenAPI 3.0 spec based lightweight microservice framework written in Go. It supports monolith service application as well. Currently, it supports RESTful service only.

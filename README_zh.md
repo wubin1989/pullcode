@@ -198,3 +198,7 @@ petService.getPetFindByStatus({
 })
 </script>
 ```
+
+## 姐妹项目
+
+- [go-doudou](https://github.com/unionj-cloud/go-doudou): 一个轻量级的go语言微服务开发框架。它同时支持开发单体应用。目前仅支持RESTful服务。
