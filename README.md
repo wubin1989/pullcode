@@ -1,6 +1,7 @@
 # pullcode
 
 pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持Swagger 2和OpenAPI 3(aka Swagger 3)。  
+pullcode is OpenAPI (aka Swagger) specification compatible typescript http client code generation tool relying on axios. You can configure it to npm scripts to directly generate client code to specified path to easily use. Support Swagger 2 and OpenAPI 3 (aka Swagger 3) in json format.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -19,27 +20,28 @@ pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## 特性
+## Features
 
-1. 完全的typescript类型支持。依据Swagger2/OpenAPI3文档里的各接口路径前缀分组生成Service类，以及与RESTful接口一一对应的类方法，同时生成所有的对象类型的入参和出参的typescript类型。
-2. 丰富实用的配置项。pullcode为用户封装好了axios配置项，可以优雅地传入自定义配置。
-3. 内置了axios的request请求拦截器和response响应拦截器。请求拦截器已经做了请求地址的拼接和Authorization请求头的处理。响应拦截器已经做了从原始response中读取data属性的处理。用户可以通过配置项分别设置自定义的请求拦截器和响应拦截器作为补充。请求错误和响应错误的拦截器需要自定义实现和配置，生成器没有提供默认实现。
-4. 前端框架无关（framework-agnostic）。无论采用何种前端框架，均可使用pullcode。
+1. Totally typescript support. Pullcode generates service class, methods, request body and response body object types based on json formatted Swagger2/OpenAPI3 documentation.
+2. Rich and useful configuration options. Pullcode wrapps axios configuration options and add more options for you to elegantly customize requests.
+3. Built-in axios request and response interceptors. Request interceptor handles request url rewrite and adds Authorization header. Response interceptor extracts data attribute from raw response. Users can configure additional custom interceptors to do further process. There is no built-in request error and response error interceptors, users should pass their own implementations if necessary.
+4. Framework-agnostic. Pullcode can be used with any frontend frameworks.
 
-## 第三方依赖
+## Credits
 
-* [commander.js](https://github.com/tj/commander.js)：nodejs命令行工具库
-* [swagger2openapi](https://github.com/Mermade/oas-kit/blob/main/packages/swagger2openapi/README.md)：swagger 2 json文档转OpenAPI 3 json文档
+* [commander.js](https://github.com/tj/commander.js)：nodejs command line tool library
+* [swagger2openapi](https://github.com/Mermade/oas-kit/blob/main/packages/swagger2openapi/README.md)：convert swagger 2 to OpenAPI 3
+* [vue-vben-admin](https://github.com/vbenjs/vue-vben-admin): a modern vue3 admin
 
-## 安装
+## Installation
 
 ```shell
 npm install --save pullcode
 ```
 
-注意：pullcode生成的代码里依赖pullcode中的代码，pullcode既是一个命令行工具，也是一个npm模块，所以必须用`--save`，不能用`--save-dev`。
+NOTE: generated code imports code from pullcode, so pullcode is not only a CLI, but also a npm package, you should use `--save` instead of `--save-dev`.
 
-## 命令可选项
+## CLI Options
 
 ```shell
 ➜  pullcode git:(master) ✗ pullcode -h                                           
@@ -51,15 +53,15 @@ Options:
   -h, --help            display help for command
 ```
 
-* output: 指定代码生成到哪个文件夹，不存在的文件夹会自动递归创建
+* output: directories will be recursively created if not exists.
 
-## 代码生成规则
+## Generation Rule
 
-生成代码时，pullcode首先会检查output目录里是否有BizService.ts文件，如果已经存在，则忽略，不会覆盖。其他文件无论是否已存在都会覆盖。
+Pullcode will check if `BizService.ts` file exists, if exists, skip. Other files will always be overwritten.
 
-## 用法
+## Usage
 
-1. 在package.json的scripts属性里配置pullcode命令，例如：
+1. Configure pullcode command into `scripts` attribute in package.json. For example:
 
 ```javascript
 "scripts": {
@@ -67,9 +69,9 @@ Options:
 },
 ```
 
-2. 执行命令`npm run pull`
+2. Run `npm run pull`
 
-3. 打开`BizService.ts`文件，根据后端接口请求地址和实际项目需要修改`defaultOptions`配置参数
+3. Open `BizService.ts` file, fix `defaultOptions` parameters to fit your need.  
 
 ```javascript
 const defaultOptions: CreateAxiosOptions = {
@@ -80,12 +82,12 @@ const defaultOptions: CreateAxiosOptions = {
 }
 ```
 
-- `apiUrl`：如果配置了用于解决跨域问题的proxy，这里的`apiUrl`只需设置成一个前缀即可。
-- `urlPrefix`：这个参数需要跟后端同事确认接口是否有前缀。可能是后端接口的服务名，也可能没有前缀。如果没有前缀，空字符串即可。
-- `transform`：设置自定义的axios拦截器。一般情况只需配置响应错误处理的拦截器。下文会给出示例代码。
-- `tokenGetter`：设置获取token的getter函数的。该函数会被request请求拦截器调用，并将返回的token放进header里。
+- `apiUrl`: if configured proxy, `apiUrl` should be set to a prefix for matching the proxy.
+- `urlPrefix`: should be confirmed with your backend colleagues if there is url prefix to match service name (if the service is behind a gateway) or servlet contxt path (if the service is based on spring boot framework).
+- `transform`: set your custom axios interceptors. Normally, you just need to customize response error interceptor.
+- `tokenGetter`: set auth token getter function. The function will be called in built-in request interceptor to put token into header.
 
-修改后的示例代码如下：
+For example: 
 
 ```javascript
 import { merge } from 'lodash-es';
@@ -115,18 +117,18 @@ export class BizService extends VAxios {
 export default BizService;
 ```
 
-关于其他配置项，可自行查看`CreateAxiosOptions`类型定义。
+For other options, please read `CreateAxiosOptions` definition from source code.
 
-4. 按上述步骤修改之后，就可以在组件中导入默认的Service实例调用接口了
+4. After above fix, you can import default singleton service instance to components to send http requests.
 
-## 快速上手
+## Quickstart
 
-请参考完整示例：[pullcode-quickstart](https://github.com/wubin1989/pullcode/tree/master/examples/pullcode-quickstart)
+Please refer to this example app：[pullcode-quickstart](https://github.com/wubin1989/pullcode/tree/master/examples/pullcode-quickstart)
 
 ![petstore](./petstore.png)
 
-## 更多示例代码
-### 拦截请求错误
+## More Examples
+### Response Error Interceptor
 
 ```javascript
 import type { AxiosResponse } from 'axios';
@@ -138,12 +140,9 @@ import { useI18n } from '/@/hooks/web/useI18n';
 
 const { createMessage, createErrorModal } = useMessage();
 
-/**
- * @description: 数据处理，方便区分多种处理方式
- */
 export const transform: AxiosTransform = {
   /**
-   * @description: 响应错误处理
+   * @description: Response Error Interceptor
    */
   responseInterceptorsCatch: (_: AxiosResponse, error: any) => {
     const { t } = useI18n();
@@ -181,7 +180,7 @@ export const transform: AxiosTransform = {
 };
 ```
 
-### 请求接口
+### Send Requests
 
 ```javascript
 <script setup lang="ts">

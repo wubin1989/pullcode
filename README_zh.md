@@ -1,6 +1,6 @@
 # pullcode
 
-pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持Swagger 2和OpenAPI 3(aka Swagger 3)。  
+pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持json格式的Swagger 2和OpenAPI 3(aka Swagger 3)文档。  
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -26,10 +26,11 @@ pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端
 3. 内置了axios的request请求拦截器和response响应拦截器。请求拦截器已经做了请求地址的拼接和Authorization请求头的处理。响应拦截器已经做了从原始response中读取data属性的处理。用户可以通过配置项分别设置自定义的请求拦截器和响应拦截器作为补充。请求错误和响应错误的拦截器需要自定义实现和配置，生成器没有提供默认实现。
 4. 前端框架无关（framework-agnostic）。无论采用何种前端框架，均可使用pullcode。
 
-## 第三方依赖
+## 感谢
 
 * [commander.js](https://github.com/tj/commander.js)：nodejs命令行工具库
 * [swagger2openapi](https://github.com/Mermade/oas-kit/blob/main/packages/swagger2openapi/README.md)：swagger 2 json文档转OpenAPI 3 json文档
+* [vue-vben-admin](https://github.com/vbenjs/vue-vben-admin): vue3管理后台脚手架
 
 ## 安装
 
@@ -55,7 +56,7 @@ Options:
 
 ## 代码生成规则
 
-生成代码时，pullcode首先会检查output目录里是否有BizService.ts文件，如果已经存在，则忽略，不会覆盖。其他文件无论是否已存在都会覆盖。
+生成代码时，pullcode首先会检查output目录里是否有`BizService.ts`文件，如果已经存在，则忽略，不会覆盖。其他文件无论是否已存在都会覆盖。
 
 ## 用法
 
@@ -138,9 +139,6 @@ import { useI18n } from '/@/hooks/web/useI18n';
 
 const { createMessage, createErrorModal } = useMessage();
 
-/**
- * @description: 数据处理，方便区分多种处理方式
- */
 export const transform: AxiosTransform = {
   /**
    * @description: 响应错误处理
