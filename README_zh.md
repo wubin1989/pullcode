@@ -1,6 +1,6 @@
 # pullcode
 
-pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持json格式的Swagger 2和OpenAPI 3(aka Swagger 3)文档。  
+Pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持json格式的Swagger 2和OpenAPI 3(aka Swagger 3)文档。  
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -17,6 +17,7 @@ pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端
   - [拦截请求错误](#%E6%8B%A6%E6%88%AA%E8%AF%B7%E6%B1%82%E9%94%99%E8%AF%AF)
   - [请求接口](#%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3)
 - [姐妹项目](#%E5%A7%90%E5%A6%B9%E9%A1%B9%E7%9B%AE)
+- [开源协议](#%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -203,3 +204,7 @@ petService.getPetFindByStatus({
 ## 姐妹项目
 
 - [go-doudou](https://github.com/unionj-cloud/go-doudou): 一个轻量级的go语言微服务开发框架。它同时支持开发单体应用。目前仅支持RESTful服务。
+
+## 开源协议
+
+MIT
