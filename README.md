@@ -1,22 +1,22 @@
 # pullcode
-
-pullcode是基于OpenAPI规范的封装了axios的typescript http请求客户端代码生成器。通过配置npm script命令即可直接将代码生成到指定目录下，直接使用。支持Swagger 2和OpenAPI 3(aka Swagger 3)。  
+  
 pullcode is OpenAPI (aka Swagger) specification compatible typescript http client code generation tool relying on axios. You can configure it to npm scripts to directly generate client code to specified path to easily use. Support Swagger 2 and OpenAPI 3 (aka Swagger 3) in json format.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ### TOC
 
-- [特性](#%E7%89%B9%E6%80%A7)
-- [第三方依赖](#%E7%AC%AC%E4%B8%89%E6%96%B9%E4%BE%9D%E8%B5%96)
-- [安装](#%E5%AE%89%E8%A3%85)
-- [命令可选项](#%E5%91%BD%E4%BB%A4%E5%8F%AF%E9%80%89%E9%A1%B9)
-- [代码生成规则](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99)
-- [用法](#%E7%94%A8%E6%B3%95)
-- [快速上手](#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B)
-- [更多示例代码](#%E6%9B%B4%E5%A4%9A%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81)
-  - [拦截请求错误](#%E6%8B%A6%E6%88%AA%E8%AF%B7%E6%B1%82%E9%94%99%E8%AF%AF)
-  - [请求接口](#%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3)
+- [Features](#features)
+- [Credits](#credits)
+- [Installation](#installation)
+- [CLI Options](#cli-options)
+- [Generation Rule](#generation-rule)
+- [Usage](#usage)
+- [Quickstart](#quickstart)
+- [More Examples](#more-examples)
+  - [Response Error Interceptor](#response-error-interceptor)
+  - [Send Requests](#send-requests)
+- [Sister Projects](#sister-projects)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
