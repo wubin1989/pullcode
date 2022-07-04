@@ -1,6 +1,6 @@
 # pullcode
   
-pullcode is OpenAPI (aka Swagger) specification compatible typescript http client code generation tool relying on axios. You can configure it to npm scripts to directly generate client code to specified path to easily use. Support Swagger 2 and OpenAPI 3 (aka Swagger 3) in json format.
+Pullcode is OpenAPI (aka Swagger) specification compatible typescript http client code generation tool relying on axios. You can configure it to npm scripts to directly generate client code to specified path to easily use. Support Swagger 2 and OpenAPI 3 (aka Swagger 3) in json format.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
