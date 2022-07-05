@@ -25,9 +25,9 @@ export class OpenType {
   }`, { properties: this.properties })
   }
 
-  public static fromSchema({ schema, enumAs, typeName = '' }: {
+  public static fromSchema({ schema, createEnum = false, typeName = '' }: {
     schema: OpenAPI3Schema;
-    enumAs?: 'CODE' | 'DOC';
+    createEnum?: boolean;
     typeName?: string;
   }): OpenType {
     const openType = new OpenType();
@@ -46,20 +46,11 @@ export class OpenType {
         openProperty.doc = desc;
         openProperty.docs.push(desc);
       }
-      if (value.enum && value.enum.length) {
-        if (enumAs && enumAs == 'DOC') {
-          const enums = value.enum.join(',').trim();
-          if (enums) {
-            openProperty.doc = openType.doc + "\n" + enums;
-            openProperty.docs.push(enums)
-          }
-          openProperty.setTypeSchema(value);
-        } else {
-          const type = openType.name + _.upperFirst(prop) + "Enum";
-          openProperty.type = type;
-          const voEnumList: OpenEnum[] = value.enum.map(item => new OpenEnum(_.toUpper(item), item));
-          openEnumTypes.push(new OpenEnumType(voEnumList, type));
-        }
+      if (value.enum?.length && createEnum) {
+        const type = openType.name + _.upperFirst(prop) + "Enum";
+        openProperty.type = type;
+        const voEnumList: OpenEnum[] = value.enum.map(item => new OpenEnum(_.toUpper(item), item));
+        openEnumTypes.push(new OpenEnumType(voEnumList, type));
       } else {
         openProperty.setTypeSchema(value);
       }

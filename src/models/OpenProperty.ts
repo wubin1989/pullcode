@@ -50,9 +50,10 @@ export class OpenProperty {
         break;
       }
       case "string": {
-        const format = schema.format;
-        if (format === "binary") {
+        if (schema.format === "binary") {
           tsType = OpenTypeConstants.BLOB;
+        } else if (schema.enum?.length) {
+          tsType = schema.enum.map(item => `'${item}'`).join(" | ")
         } else {
           tsType = OpenTypeConstants.STRING;
         }
@@ -76,7 +77,6 @@ export class OpenProperty {
         } else if (Object.keys(schema.properties || {}).length) {
           tsType = OpenType.fromSchema({
             schema: schema,
-            enumAs: 'DOC',
           }).toCode();
         } else {
           tsType = OpenTypeConstants.ANY;

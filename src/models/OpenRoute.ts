@@ -28,7 +28,7 @@ export class OpenRoute {
     if (operation.summary) {
       strings.push(...operation.summary.split(/[^\S ]/));
     }
-    if (operation.description && operation.description.trim()) {
+    if (operation.description?.trim()) {
       strings.push(...operation.description.trim().split(/[^\S ]/));
     }
     openRoute.docs = strings;
@@ -41,7 +41,7 @@ export class OpenRoute {
     if (requestBody) {
       if ((requestBody as OpenAPIV3.ReferenceObject).$ref) {
         const key = (requestBody as OpenAPIV3.ReferenceObject).$ref.replace("#/components/requestBodies/", '');
-        requestBody = components.requestBodies && components.requestBodies[key];
+        requestBody = components.requestBodies?.[key];
         if (!requestBody) {
           throw new Error(`missing ${key} definition`)
         }
@@ -49,7 +49,7 @@ export class OpenRoute {
       requestBody = requestBody as OpenAPIV3.RequestBodyObject
       const content = requestBody.content;
       const openProperty = new OpenProperty();
-      openProperty.doc = requestBody.description && requestBody.description.trim();
+      openProperty.doc = requestBody.description?.trim();
       if (content) {
         if (content["application/json"]) {
           const mediaType = content["application/json"];
@@ -84,7 +84,7 @@ export class OpenRoute {
               if (!components.schemas || !components.schemas[key]) {
                 throw new Error(`missing ${key} definition`)
               }
-              formUrlencodedSchema = components.schemas && components.schemas[key]
+              formUrlencodedSchema = components.schemas[key]
             }
             formUrlencodedSchema = formUrlencodedSchema as OpenAPIV3.SchemaObject
             const required = formUrlencodedSchema.required;
@@ -92,7 +92,7 @@ export class OpenRoute {
             const urlSearchParams = properties && Object.keys(properties).map(propName => {
               const property = new OpenProperty();
               const propSchema = properties[propName] as OpenAPI3Schema;
-              property.doc = propSchema.description && propSchema.description.trim();
+              property.doc = propSchema.description?.trim();
               property.in = 'requestBody';
               property.name = propName;
               property.setTypeSchema(propSchema)
@@ -121,17 +121,17 @@ export class OpenRoute {
       }
     }
 
-    const openProperties = operation.parameters && operation.parameters.map((para) => {
+    const openProperties = operation.parameters?.map((para) => {
       para = para as OpenAPIV3.ParameterObject
       const openProperty = new OpenProperty();
       openProperty.in = para.in;
       openProperty.name = para.name;
       openProperty.setTypeSchema(para.schema as OpenAPI3Schema);
       openProperty.required = !!para.required;
-      openProperty.doc = para.description && para.description.trim();
+      openProperty.doc = para.description?.trim();
       return openProperty;
     });
-    if (openProperties && openProperties.length) {
+    if (openProperties?.length) {
       const pathParams = [] as OpenProperty[];
       const queryParams = [] as OpenProperty[];
       const headerParams = [] as OpenProperty[];
@@ -151,7 +151,7 @@ export class OpenRoute {
       openRoute.allParams = openProperties;
     }
 
-    if (openRoute.urlSearchParams && openRoute.urlSearchParams.length) {
+    if (openRoute.urlSearchParams?.length) {
       if (!openRoute.allParams) {
         openRoute.allParams = [];
       }
@@ -161,7 +161,7 @@ export class OpenRoute {
       }
       openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }
-    if ((openRoute.headerParams && openRoute.headerParams.length) || openRoute.defaultHeaders) {
+    if (openRoute.headerParams?.length || openRoute.defaultHeaders) {
       openRoute.hasHeaders = true;
     }
     const responses = operation.responses;
@@ -173,7 +173,7 @@ export class OpenRoute {
           if (!components.responses || !components.responses[key]) {
             throw new Error(`missing ${key} definition`);
           }
-          okResponse = components.responses && components.responses[key];
+          okResponse = components.responses[key];
         }
         okResponse = okResponse as OpenAPIV3.ResponseObject
         const content = okResponse.content;
@@ -184,7 +184,7 @@ export class OpenRoute {
             openProperty.name = 'data';
             openProperty.in = 'responseBody';
             openProperty.setTypeSchema(mediaType.schema as OpenAPI3Schema);
-            openProperty.doc = okResponse.description && okResponse.description.trim();
+            openProperty.doc = okResponse.description?.trim();
             openRoute.respData = openProperty;
           }
         }
