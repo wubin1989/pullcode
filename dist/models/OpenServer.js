@@ -36,6 +36,7 @@ class OpenServer {
             for (let prop in schemas) {
                 types.push(OpenType_1.OpenType.fromSchema({
                     schema: schemas[prop],
+                    createEnum: true,
                     typeName: prop.replace(/[^a-zA-Z0-9_]/g, ""),
                 }));
             }

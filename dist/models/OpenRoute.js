@@ -10,6 +10,7 @@ class OpenRoute {
         this.hasHeaders = false;
     }
     static of(endpoint, httpMethod, operation, components) {
+        var _a, _b, _c, _d, _e, _f, _g;
         const openRoute = new OpenRoute();
         openRoute.endpoint = endpoint;
         openRoute.httpMethod = httpMethod;
@@ -17,7 +18,7 @@ class OpenRoute {
         if (operation.summary) {
             strings.push(...operation.summary.split(/[^\S ]/));
         }
-        if (operation.description && operation.description.trim()) {
+        if ((_a = operation.description) === null || _a === void 0 ? void 0 : _a.trim()) {
             strings.push(...operation.description.trim().split(/[^\S ]/));
         }
         openRoute.docs = strings;
@@ -31,7 +32,7 @@ class OpenRoute {
         if (requestBody) {
             if (requestBody.$ref) {
                 const key = requestBody.$ref.replace("#/components/requestBodies/", '');
-                requestBody = components.requestBodies && components.requestBodies[key];
+                requestBody = (_b = components.requestBodies) === null || _b === void 0 ? void 0 : _b[key];
                 if (!requestBody) {
                     throw new Error(`missing ${key} definition`);
                 }
@@ -39,7 +40,7 @@ class OpenRoute {
             requestBody = requestBody;
             const content = requestBody.content;
             const openProperty = new OpenProperty_1.OpenProperty();
-            openProperty.doc = requestBody.description && requestBody.description.trim();
+            openProperty.doc = (_c = requestBody.description) === null || _c === void 0 ? void 0 : _c.trim();
             if (content) {
                 if (content["application/json"]) {
                     const mediaType = content["application/json"];
@@ -77,15 +78,16 @@ class OpenRoute {
                             if (!components.schemas || !components.schemas[key]) {
                                 throw new Error(`missing ${key} definition`);
                             }
-                            formUrlencodedSchema = components.schemas && components.schemas[key];
+                            formUrlencodedSchema = components.schemas[key];
                         }
                         formUrlencodedSchema = formUrlencodedSchema;
                         const required = formUrlencodedSchema.required;
                         const properties = formUrlencodedSchema.properties;
                         const urlSearchParams = properties && Object.keys(properties).map(propName => {
+                            var _a;
                             const property = new OpenProperty_1.OpenProperty();
                             const propSchema = properties[propName];
-                            property.doc = propSchema.description && propSchema.description.trim();
+                            property.doc = (_a = propSchema.description) === null || _a === void 0 ? void 0 : _a.trim();
                             property.in = 'requestBody';
                             property.name = propName;
                             property.setTypeSchema(propSchema);
@@ -115,17 +117,18 @@ class OpenRoute {
                 }
             }
         }
-        const openProperties = operation.parameters && operation.parameters.map((para) => {
+        const openProperties = (_d = operation.parameters) === null || _d === void 0 ? void 0 : _d.map((para) => {
+            var _a;
             para = para;
             const openProperty = new OpenProperty_1.OpenProperty();
             openProperty.in = para.in;
             openProperty.name = para.name;
             openProperty.setTypeSchema(para.schema);
             openProperty.required = !!para.required;
-            openProperty.doc = para.description && para.description.trim();
+            openProperty.doc = (_a = para.description) === null || _a === void 0 ? void 0 : _a.trim();
             return openProperty;
         });
-        if (openProperties && openProperties.length) {
+        if (openProperties === null || openProperties === void 0 ? void 0 : openProperties.length) {
             const pathParams = [];
             const queryParams = [];
             const headerParams = [];
@@ -146,7 +149,7 @@ class OpenRoute {
             openRoute.headerParams = headerParams;
             openRoute.allParams = openProperties;
         }
-        if (openRoute.urlSearchParams && openRoute.urlSearchParams.length) {
+        if ((_e = openRoute.urlSearchParams) === null || _e === void 0 ? void 0 : _e.length) {
             if (!openRoute.allParams) {
                 openRoute.allParams = [];
             }
@@ -156,7 +159,7 @@ class OpenRoute {
             }
             openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
         }
-        if ((openRoute.headerParams && openRoute.headerParams.length) || openRoute.defaultHeaders) {
+        if (((_f = openRoute.headerParams) === null || _f === void 0 ? void 0 : _f.length) || openRoute.defaultHeaders) {
             openRoute.hasHeaders = true;
         }
         const responses = operation.responses;
@@ -168,7 +171,7 @@ class OpenRoute {
                     if (!components.responses || !components.responses[key]) {
                         throw new Error(`missing ${key} definition`);
                     }
-                    okResponse = components.responses && components.responses[key];
+                    okResponse = components.responses[key];
                 }
                 okResponse = okResponse;
                 const content = okResponse.content;
@@ -179,7 +182,7 @@ class OpenRoute {
                         openProperty.name = 'data';
                         openProperty.in = 'responseBody';
                         openProperty.setTypeSchema(mediaType.schema);
-                        openProperty.doc = okResponse.description && okResponse.description.trim();
+                        openProperty.doc = (_g = okResponse.description) === null || _g === void 0 ? void 0 : _g.trim();
                         openRoute.respData = openProperty;
                     }
                 }

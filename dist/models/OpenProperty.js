@@ -22,6 +22,7 @@ class OpenProperty {
         this.type = type;
     }
     deepSetType(schema) {
+        var _a;
         let type = schema.type;
         if (!type) {
             return this.getTypeByRef(schema.$ref);
@@ -41,9 +42,11 @@ class OpenProperty {
                 break;
             }
             case "string": {
-                const format = schema.format;
-                if (format === "binary") {
+                if (schema.format === "binary") {
                     tsType = OpenTypeConstants_1.OpenTypeConstants.BLOB;
+                }
+                else if ((_a = schema.enum) === null || _a === void 0 ? void 0 : _a.length) {
+                    tsType = schema.enum.map(item => `'${item}'`).join(" | ");
                 }
                 else {
                     tsType = OpenTypeConstants_1.OpenTypeConstants.STRING;
@@ -71,7 +74,6 @@ class OpenProperty {
                 else if (Object.keys(schema.properties || {}).length) {
                     tsType = OpenType_1.OpenType.fromSchema({
                         schema: schema,
-                        enumAs: 'DOC',
                     }).toCode();
                 }
                 else {

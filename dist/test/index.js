@@ -1,6 +1,8 @@
 "use strict";
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
+const ServiceGenerator_1 = require("../generators/ServiceGenerator");
 // import * as data from './usersvc_openapi3.json'
 const data = require("./petstore3.json");
 const OpenServer_1 = require("../models/OpenServer");
@@ -14,18 +16,18 @@ const openServer = OpenServer_1.OpenServer.convert(data);
 //   }
 //   bizServiceGenerator.generate();
 // })
-// openServer.services?.forEach(function (service) {
-//   const serviceGenerator = new ServiceGenerator()
-//   serviceGenerator.outputDir = 'api'
-//   serviceGenerator.service = service;
-//   // console.log(JSON.stringify(serviceGenerator.service, null, 4))
-//   fs.mkdir(serviceGenerator.outputDir, { recursive: true }, function (err) {
-//     if (err) {
-//       throw err
-//     }
-//     serviceGenerator.generate();
-//   })
-// })
+(_a = openServer.services) === null || _a === void 0 ? void 0 : _a.forEach(function (service) {
+    const serviceGenerator = new ServiceGenerator_1.ServiceGenerator();
+    serviceGenerator.outputDir = 'api';
+    serviceGenerator.service = service;
+    // console.log(JSON.stringify(serviceGenerator.service, null, 4))
+    fs.mkdir(serviceGenerator.outputDir, { recursive: true }, function (err) {
+        if (err) {
+            throw err;
+        }
+        serviceGenerator.generate();
+    });
+});
 const typesGenerator = new TypesGenerator_1.TypesGenerator();
 typesGenerator.outputDir = 'api';
 typesGenerator.types = openServer.types;

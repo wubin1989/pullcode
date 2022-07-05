@@ -19,7 +19,8 @@ class OpenType {
       <%_ }) -%>
   }`, { properties: this.properties });
     }
-    static fromSchema({ schema, enumAs, typeName = '' }) {
+    static fromSchema({ schema, createEnum = false, typeName = '' }) {
+        var _a;
         const openType = new OpenType();
         openType.name = typeName;
         openType.doc = schema.description && schema.description.trim();
@@ -36,21 +37,11 @@ class OpenType {
                 openProperty.doc = desc;
                 openProperty.docs.push(desc);
             }
-            if (value.enum && value.enum.length) {
-                if (enumAs && enumAs == 'DOC') {
-                    const enums = value.enum.join(',').trim();
-                    if (enums) {
-                        openProperty.doc = openType.doc + "\n" + enums;
-                        openProperty.docs.push(enums);
-                    }
-                    openProperty.setTypeSchema(value);
-                }
-                else {
-                    const type = openType.name + _.upperFirst(prop) + "Enum";
-                    openProperty.type = type;
-                    const voEnumList = value.enum.map(item => new OpenEnum_1.OpenEnum(_.toUpper(item), item));
-                    openEnumTypes.push(new OpenEnumType_1.OpenEnumType(voEnumList, type));
-                }
+            if (((_a = value.enum) === null || _a === void 0 ? void 0 : _a.length) && createEnum) {
+                const type = openType.name + _.upperFirst(prop) + "Enum";
+                openProperty.type = type;
+                const voEnumList = value.enum.map(item => new OpenEnum_1.OpenEnum(_.toUpper(item), item));
+                openEnumTypes.push(new OpenEnumType_1.OpenEnumType(voEnumList, type));
             }
             else {
                 openProperty.setTypeSchema(value);
