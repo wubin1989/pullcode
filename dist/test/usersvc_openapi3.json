@@ -417,6 +417,12 @@
                     "username": {
                         "type": "string",
                         "description": "用户名\nusername"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
                     }
                 },
                 "required": [

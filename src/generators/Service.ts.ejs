@@ -54,7 +54,15 @@ export class <%- name %> extends BizService {
     <%_ if(route.urlSearchParams && route.urlSearchParams.length){ -%>
       const urlSearchParams = new URLSearchParams();
       <%_ route.urlSearchParams.forEach(function(urlSearchParam){ -%>
-      <% if(!urlSearchParam.required){ %>params.<%- urlSearchParam.name %> !== undefined && <%_ } %>urlSearchParams.append('<%- urlSearchParam.name %>', '' + params.<%- urlSearchParam.name %>);
+        <%_ if(urlSearchParam.type.endsWith("[]")){ -%>
+      <% if(!urlSearchParam.required){ %>params.<%- urlSearchParam.name %> !== undefined && <% } %>(
+        params.<%- urlSearchParam.name %>.forEach(item => {
+          urlSearchParams.append('<%- urlSearchParam.name %>[]', '' + item)
+        })
+      );
+        <%_ } else { -%>
+      <% if(!urlSearchParam.required){ %>params.<%- urlSearchParam.name %> !== undefined && <% } %>urlSearchParams.append('<%- urlSearchParam.name %>', '' + params.<%- urlSearchParam.name %>);
+        <%_ } -%>
       <%_ }) -%>
     <%_ } -%>
     <%_ if(route.hasHeaders){ -%>

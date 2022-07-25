@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { ServiceGenerator } from "../generators/ServiceGenerator";
-// import * as data from './usersvc_openapi3.json'
-import * as data from './petstore3.json'
+import * as data from './usersvc_openapi3.json'
+// import * as data from './petstore3.json'
 import { OpenServer } from "../models/OpenServer";
 import { OpenAPIV3 } from "openapi-types";
 import { TypesGenerator } from "../generators/TypesGenerator";
