@@ -94,7 +94,7 @@ export class OpenRoute {
               const propSchema = properties[propName] as OpenAPI3Schema;
               property.doc = propSchema.description?.trim();
               property.in = 'requestBody';
-              property.name = propName;
+              property.name = propName.replace('[]', '');
               property.setTypeSchema(propSchema)
               property.required = _.includes(required, propName);
               return property;
@@ -125,7 +125,7 @@ export class OpenRoute {
       para = para as OpenAPIV3.ParameterObject
       const openProperty = new OpenProperty();
       openProperty.in = para.in;
-      openProperty.name = para.name;
+      openProperty.name = para.name.replace('[]', '');
       openProperty.setTypeSchema(para.schema as OpenAPI3Schema);
       openProperty.required = !!para.required;
       openProperty.doc = para.description?.trim();

@@ -89,7 +89,7 @@ class OpenRoute {
                             const propSchema = properties[propName];
                             property.doc = (_a = propSchema.description) === null || _a === void 0 ? void 0 : _a.trim();
                             property.in = 'requestBody';
-                            property.name = propName;
+                            property.name = propName.replace('[]', '');
                             property.setTypeSchema(propSchema);
                             property.required = _.includes(required, propName);
                             return property;
@@ -122,7 +122,7 @@ class OpenRoute {
             para = para;
             const openProperty = new OpenProperty_1.OpenProperty();
             openProperty.in = para.in;
-            openProperty.name = para.name;
+            openProperty.name = para.name.replace('[]', '');
             openProperty.setTypeSchema(para.schema);
             openProperty.required = !!para.required;
             openProperty.doc = (_a = para.description) === null || _a === void 0 ? void 0 : _a.trim();
