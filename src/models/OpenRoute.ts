@@ -13,7 +13,6 @@ export class OpenRoute {
   public respData: OpenProperty = new OpenProperty(OpenTypeConstants.ANY);
   public pathParams: OpenProperty[] | undefined;
   public queryParams: OpenProperty[] | undefined;
-  public urlSearchParams: OpenProperty[] | undefined;
   public allParams: OpenProperty[] | undefined;
   public headerParams: OpenProperty[] | undefined;
   public defaultHeaders: { [key: string]: string } | undefined;
@@ -78,29 +77,15 @@ export class OpenRoute {
         } else if (content["application/x-www-form-urlencoded"]) {
           const formUrlencoded = content["application/x-www-form-urlencoded"];
           if (formUrlencoded.schema) {
-            let formUrlencodedSchema = formUrlencoded.schema;
-            if ((formUrlencodedSchema as OpenAPIV3.ReferenceObject).$ref) {
-              const key = (formUrlencodedSchema as OpenAPIV3.ReferenceObject).$ref.replace("#/components/schemas/", '');
-              if (!components.schemas || !components.schemas[key]) {
-                throw new Error(`missing ${key} definition`)
-              }
-              formUrlencodedSchema = components.schemas[key]
-            }
-            formUrlencodedSchema = formUrlencodedSchema as OpenAPIV3.SchemaObject
-            const required = formUrlencodedSchema.required;
-            const properties = formUrlencodedSchema.properties;
-            const urlSearchParams = properties && Object.keys(properties).map(propName => {
-              const property = new OpenProperty();
-              const propSchema = properties[propName] as OpenAPI3Schema;
-              property.doc = propSchema.description?.trim();
-              property.in = 'requestBody';
-              property.name = propName.replace('[]', '');
-              property.setTypeSchema(propSchema)
-              property.required = _.includes(required, propName);
-              return property;
-            })
-            openRoute.urlSearchParams = urlSearchParams;
+            openProperty.name = "payload";
+            openProperty.in = "requestBody";
+            openProperty.setTypeSchema(formUrlencoded.schema as OpenAPI3Schema);
+            openRoute.reqBody = openProperty;
           }
+          if (!openRoute.defaultHeaders) {
+            openRoute.defaultHeaders = {};
+          }
+          openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
         } else if (content["text/plain"]) {
           const mediaType = content["text/plain"];
           if (mediaType.schema) {
@@ -149,17 +134,6 @@ export class OpenRoute {
       openRoute.queryParams = queryParams;
       openRoute.headerParams = headerParams;
       openRoute.allParams = openProperties;
-    }
-
-    if (openRoute.urlSearchParams?.length) {
-      if (!openRoute.allParams) {
-        openRoute.allParams = [];
-      }
-      openRoute.allParams.push(...openRoute.urlSearchParams);
-      if (!openRoute.defaultHeaders) {
-        openRoute.defaultHeaders = {};
-      }
-      openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }
     if (openRoute.headerParams?.length || openRoute.defaultHeaders) {
       openRoute.hasHeaders = true;

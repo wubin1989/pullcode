@@ -4,6 +4,7 @@
 *
 * @module <%- module %>
 */
+import qs from "qs";
 import { CreateAxiosOptions } from "pullcode/src/httputil/axiosTransform";
 import BizService from "./BizService";
 <%_ if(types && types.length){ -%>
@@ -51,20 +52,6 @@ export class <%- name %> extends BizService {
     },
   <%_ } -%>
   ): Promise<<%- route.respData.type === "Blob" ? 'any' : route.respData.type %>> {
-    <%_ if(route.urlSearchParams && route.urlSearchParams.length){ -%>
-      const urlSearchParams = new URLSearchParams();
-      <%_ route.urlSearchParams.forEach(function(urlSearchParam){ -%>
-        <%_ if(urlSearchParam.type.endsWith("[]")){ -%>
-      <% if(!urlSearchParam.required){ %>params.<%- urlSearchParam.name %> !== undefined && <% } %>(
-        params.<%- urlSearchParam.name %>.forEach(item => {
-          urlSearchParams.append('<%- urlSearchParam.name %>[]', '' + item)
-        })
-      );
-        <%_ } else { -%>
-      <% if(!urlSearchParam.required){ %>params.<%- urlSearchParam.name %> !== undefined && <% } %>urlSearchParams.append('<%- urlSearchParam.name %>', '' + params.<%- urlSearchParam.name %>);
-        <%_ } -%>
-      <%_ }) -%>
-    <%_ } -%>
     <%_ if(route.hasHeaders){ -%>
       const headers: Record<string, string> = {
         <%_ if(route.defaultHeaders){ -%>
@@ -93,8 +80,6 @@ export class <%- name %> extends BizService {
       return this.getAxios().<%- _.toLower(route.httpMethod) %>(`<%- route.endpoint %>`,
         <%_ if(route.reqBody){ -%>
           <%- route.reqBody.name %>,
-        <%_ } else if (route.urlSearchParams && route.urlSearchParams.length){ -%>
-          urlSearchParams,
         <%_ } else if (_.toLower(route.httpMethod) === "post" || _.toLower(route.httpMethod) == "put"){ -%>
           null,
         <%_ } -%>
@@ -104,6 +89,9 @@ export class <%- name %> extends BizService {
             <%_ route.queryParams.forEach(function(queryParam){ -%>
               <%- queryParam.name %>: params.<%- queryParam.name %>,
             <%_ }) -%>
+            },
+            paramsSerializer: {
+              encode: (params) => qs.stringify(params, { arrayFormat: 'brackets' })
             },
             <%_ } -%>
             <%_ if(route.hasHeaders){ -%>

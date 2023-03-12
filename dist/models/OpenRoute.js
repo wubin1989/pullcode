@@ -10,7 +10,7 @@ class OpenRoute {
         this.hasHeaders = false;
     }
     static of(endpoint, httpMethod, operation, components) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f;
         const openRoute = new OpenRoute();
         openRoute.endpoint = endpoint;
         openRoute.httpMethod = httpMethod;
@@ -72,30 +72,15 @@ class OpenRoute {
                 else if (content["application/x-www-form-urlencoded"]) {
                     const formUrlencoded = content["application/x-www-form-urlencoded"];
                     if (formUrlencoded.schema) {
-                        let formUrlencodedSchema = formUrlencoded.schema;
-                        if (formUrlencodedSchema.$ref) {
-                            const key = formUrlencodedSchema.$ref.replace("#/components/schemas/", '');
-                            if (!components.schemas || !components.schemas[key]) {
-                                throw new Error(`missing ${key} definition`);
-                            }
-                            formUrlencodedSchema = components.schemas[key];
-                        }
-                        formUrlencodedSchema = formUrlencodedSchema;
-                        const required = formUrlencodedSchema.required;
-                        const properties = formUrlencodedSchema.properties;
-                        const urlSearchParams = properties && Object.keys(properties).map(propName => {
-                            var _a;
-                            const property = new OpenProperty_1.OpenProperty();
-                            const propSchema = properties[propName];
-                            property.doc = (_a = propSchema.description) === null || _a === void 0 ? void 0 : _a.trim();
-                            property.in = 'requestBody';
-                            property.name = propName.replace('[]', '');
-                            property.setTypeSchema(propSchema);
-                            property.required = _.includes(required, propName);
-                            return property;
-                        });
-                        openRoute.urlSearchParams = urlSearchParams;
+                        openProperty.name = "payload";
+                        openProperty.in = "requestBody";
+                        openProperty.setTypeSchema(formUrlencoded.schema);
+                        openRoute.reqBody = openProperty;
                     }
+                    if (!openRoute.defaultHeaders) {
+                        openRoute.defaultHeaders = {};
+                    }
+                    openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
                 }
                 else if (content["text/plain"]) {
                     const mediaType = content["text/plain"];
@@ -149,17 +134,7 @@ class OpenRoute {
             openRoute.headerParams = headerParams;
             openRoute.allParams = openProperties;
         }
-        if ((_e = openRoute.urlSearchParams) === null || _e === void 0 ? void 0 : _e.length) {
-            if (!openRoute.allParams) {
-                openRoute.allParams = [];
-            }
-            openRoute.allParams.push(...openRoute.urlSearchParams);
-            if (!openRoute.defaultHeaders) {
-                openRoute.defaultHeaders = {};
-            }
-            openRoute.defaultHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
-        }
-        if (((_f = openRoute.headerParams) === null || _f === void 0 ? void 0 : _f.length) || openRoute.defaultHeaders) {
+        if (((_e = openRoute.headerParams) === null || _e === void 0 ? void 0 : _e.length) || openRoute.defaultHeaders) {
             openRoute.hasHeaders = true;
         }
         const responses = operation.responses;
@@ -182,7 +157,7 @@ class OpenRoute {
                         openProperty.name = 'data';
                         openProperty.in = 'responseBody';
                         openProperty.setTypeSchema(mediaType.schema);
-                        openProperty.doc = (_g = okResponse.description) === null || _g === void 0 ? void 0 : _g.trim();
+                        openProperty.doc = (_f = okResponse.description) === null || _f === void 0 ? void 0 : _f.trim();
                         openRoute.respData = openProperty;
                     }
                 }
