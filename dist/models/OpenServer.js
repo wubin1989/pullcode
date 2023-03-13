@@ -5,7 +5,6 @@ const OpenService_1 = require("./OpenService");
 const OpenType_1 = require("./OpenType");
 const _ = require("lodash");
 const OpenRoute_1 = require("./OpenRoute");
-const OpenTypeConstants_1 = require("./OpenTypeConstants");
 class PathItemWrapper {
 }
 class OpenServer {
@@ -74,6 +73,7 @@ class OpenServer {
         }
         const services = [];
         pathItemWrapperMap.forEach((wrappers, key) => {
+            var _a;
             const service = new OpenService_1.OpenService();
             service.name = key;
             service.module = wrappers[0].module;
@@ -89,36 +89,7 @@ class OpenServer {
                 pathItem.delete && routes.push(OpenRoute_1.OpenRoute.of(wrapper.endpoint, "delete", pathItem.delete, document.components || {}));
             }
             service.routes = routes;
-            let types = routes.filter(route => route.reqBody != null
-                && route.reqBody.type !== OpenTypeConstants_1.OpenTypeConstants.ANY
-                && route.reqBody.type !== OpenTypeConstants_1.OpenTypeConstants.FORMDATA
-                && route.reqBody.type !== OpenTypeConstants_1.OpenTypeConstants.BLOB).map(route => {
-                let type = route.reqBody.type || '';
-                const index = type.indexOf("[]");
-                if (index >= 0) {
-                    type = type.substring(0, index);
-                }
-                if (!_.includes(OpenTypeConstants_1.OpenTypeConstants.values(), type)) {
-                    return type;
-                }
-                return '';
-            });
-            const collect = routes.filter(route => route.respData != null
-                && route.respData.type !== OpenTypeConstants_1.OpenTypeConstants.ANY
-                && route.respData.type !== OpenTypeConstants_1.OpenTypeConstants.BLOB)
-                .map(route => {
-                let type = route.respData.type || '';
-                const index = type.indexOf("[]");
-                if (index >= 0) {
-                    type = type.substring(0, index);
-                }
-                if (!_.includes(OpenTypeConstants_1.OpenTypeConstants.values(), type)) {
-                    return type;
-                }
-                return '';
-            });
-            types.push(...collect);
-            service.types = [...new Set(types)].filter(type => type && !type.startsWith("{"));
+            service.types = (_a = openServer.types) === null || _a === void 0 ? void 0 : _a.map(t => t.name);
             services.push(service);
         });
         openServer.services = services;

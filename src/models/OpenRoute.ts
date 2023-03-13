@@ -18,6 +18,7 @@ export class OpenRoute {
   public defaultHeaders: { [key: string]: string } | undefined;
   public hasHeaders: boolean = false;
   public docs: string[] | undefined;
+  public contentType: string | undefined;
 
   public static of(endpoint: string, httpMethod: string, operation: OpenAPI3Operation, components: OpenAPIV3.ComponentsObject): OpenRoute {
     const openRoute = new OpenRoute();
@@ -81,6 +82,7 @@ export class OpenRoute {
             openProperty.in = "requestBody";
             openProperty.setTypeSchema(formUrlencoded.schema as OpenAPI3Schema);
             openRoute.reqBody = openProperty;
+            openRoute.contentType = 'application/x-www-form-urlencoded';
           }
           if (!openRoute.defaultHeaders) {
             openRoute.defaultHeaders = {};

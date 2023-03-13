@@ -99,40 +99,7 @@ export class OpenServer {
         pathItem.delete && routes.push(OpenRoute.of(wrapper.endpoint!, "delete", pathItem.delete as OpenAPI3Operation, document.components || {}))
       }
       service.routes = routes;
-
-      let types = routes.filter(route => route.reqBody != null
-        && route.reqBody.type !== OpenTypeConstants.ANY
-        && route.reqBody.type !== OpenTypeConstants.FORMDATA
-        && route.reqBody.type !== OpenTypeConstants.BLOB
-      ).map(route => {
-        let type = route.reqBody!.type || '';
-        const index = type.indexOf("[]");
-        if (index >= 0) {
-          type = type.substring(0, index);
-        }
-        if (!_.includes(OpenTypeConstants.values(), type)) {
-          return type;
-        }
-        return '';
-      });
-
-      const collect = routes.filter(route => route.respData != null
-        && route.respData.type !== OpenTypeConstants.ANY
-        && route.respData.type !== OpenTypeConstants.BLOB
-      )
-        .map(route => {
-          let type = route.respData.type || '';
-          const index = type.indexOf("[]");
-          if (index >= 0) {
-            type = type.substring(0, index);
-          }
-          if (!_.includes(OpenTypeConstants.values(), type)) {
-            return type;
-          }
-          return '';
-        });
-      types.push(...collect);
-      service.types = [...new Set(types)].filter(type => type && !type.startsWith("{"))
+      service.types = openServer.types?.map(t => t.name) as any
       services.push(service)
     })
     openServer.services = services;

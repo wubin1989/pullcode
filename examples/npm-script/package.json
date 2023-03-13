@@ -1,0 +1,14 @@
+{
+  "name": "npm-script",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pull": "pullcode -u http://10.20.146.112:8080/v3/api-docs -o src/api"
+  },
+  "dependencies": {
+    "pullcode": "^1.1.2"
+  },
+  "author": "",
+  "license": "MIT"
+}

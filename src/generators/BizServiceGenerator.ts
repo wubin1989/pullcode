@@ -2,6 +2,7 @@ import * as ejs from 'ejs';
 import { version } from '../version';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as prettier from 'prettier'
 
 export class BizServiceGenerator {
   public server: string | undefined;
@@ -24,7 +25,7 @@ export class BizServiceGenerator {
       if (err) {
         throw err;
       }
-      fs.writeFile(out, str, function (err) {
+      fs.writeFile(out, prettier.format(str, { parser: "typescript" }), function (err) {
         if (err) {
           throw err;
         }

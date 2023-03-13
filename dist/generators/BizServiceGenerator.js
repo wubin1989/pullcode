@@ -5,6 +5,7 @@ const ejs = require("ejs");
 const version_1 = require("../version");
 const path = require("path");
 const fs = require("fs");
+const prettier = require("prettier");
 class BizServiceGenerator {
     constructor() {
         this.outputDir = '';
@@ -24,7 +25,7 @@ class BizServiceGenerator {
             if (err) {
                 throw err;
             }
-            fs.writeFile(out, str, function (err) {
+            fs.writeFile(out, prettier.format(str, { parser: "typescript" }), function (err) {
                 if (err) {
                     throw err;
                 }

@@ -6,6 +6,7 @@ const version_1 = require("../version");
 const path = require("path");
 const fs = require("fs");
 const _ = require("lodash");
+const prettier = require("prettier");
 class ServiceGenerator {
     constructor() {
         this.outputDir = '';
@@ -34,7 +35,7 @@ class ServiceGenerator {
             if (err) {
                 throw err;
             }
-            fs.writeFile(out, str, function (err) {
+            fs.writeFile(out, prettier.format(str, { parser: "typescript" }), function (err) {
                 if (err) {
                     throw err;
                 }

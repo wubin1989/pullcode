@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { OpenService } from 'src/models/OpenService';
 import * as _ from 'lodash';
+import * as prettier from 'prettier'
 
 export class ServiceGenerator {
   public service: OpenService | undefined;
@@ -35,7 +36,7 @@ export class ServiceGenerator {
       if (err) {
         throw err;
       }
-      fs.writeFile(out, str, function (err) {
+      fs.writeFile(out, prettier.format(str, { parser: "typescript" }), function (err) {
         if (err) {
           throw err;
         }

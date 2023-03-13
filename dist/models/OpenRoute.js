@@ -76,6 +76,7 @@ class OpenRoute {
                         openProperty.in = "requestBody";
                         openProperty.setTypeSchema(formUrlencoded.schema);
                         openRoute.reqBody = openProperty;
+                        openRoute.contentType = 'application/x-www-form-urlencoded';
                     }
                     if (!openRoute.defaultHeaders) {
                         openRoute.defaultHeaders = {};

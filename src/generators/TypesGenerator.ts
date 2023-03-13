@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as _ from 'lodash';
 import { OpenType } from 'src/models/OpenType';
+import * as prettier from 'prettier'
 
 export class TypesGenerator {
   public types: OpenType[] | undefined;
@@ -29,7 +30,7 @@ export class TypesGenerator {
       if (err) {
         throw err;
       }
-      fs.writeFile(out, str, function (err) {
+      fs.writeFile(out, prettier.format(str, { parser: "typescript" }), function (err) {
         if (err) {
           throw err;
         }

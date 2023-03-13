@@ -1,6 +1,6 @@
 {
   "name": "pullcode",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "bin": {
     "pullcode": "dist/index.js"
@@ -21,6 +21,7 @@
     "@types/axios": "^0.14.0",
     "@types/ejs": "^3.1.1",
     "@types/lodash-es": "^4.17.6",
+    "@types/prettier": "^2.7.2",
     "axios": "^0.24.0",
     "commander": "^8.0.0",
     "dotenv": "^10.0.0",
@@ -31,6 +32,8 @@
     "node-fetch": "^2.6.1",
     "oas-validator": "^5.0.8",
     "openapi-types": "^9.1.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-organize-imports": "^3.2.2",
     "swagger2openapi": "^7.0.8",
     "typescript": "^4.3.4",
     "yaml": "^1.10.2"
