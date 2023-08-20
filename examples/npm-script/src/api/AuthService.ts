@@ -4,7 +4,7 @@
 *
 * @module O-auth-controller
 */
-import { CreateAxiosOptions } from "pullcode/src/httputil/axiosTransform";
+import { CreateAxiosOptions } from "@/httputil/axiosTransform";
 import BizService from "./BizService";
 
 export class AuthService extends BizService {

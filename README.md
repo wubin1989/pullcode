@@ -92,11 +92,11 @@ For example:
 
 ```javascript
 import { merge } from 'lodash-es';
-import { CreateAxiosOptions, VAxios } from 'pullcode/src/httputil/Axios';
+import { CreateAxiosOptions, VAxios } from '@/httputil/Axios';
 import { useGlobSetting } from '/@/hooks/setting';
 import { transform } from '/@/api/interceptor'
 import { getToken } from '/@/utils/auth';
-import { RequestOptions } from 'pullcode/src/types/axios';
+import { RequestOptions } from '@/types/axios';
 
 const globSetting = useGlobSetting();
 
@@ -133,7 +133,7 @@ Please refer to this example app：[pullcode-quickstart](https://github.com/wubi
 
 ```javascript
 import type { AxiosResponse } from 'axios';
-import type { AxiosTransform } from 'pullcode/src/httputil/axiosTransform';
+import type { AxiosTransform } from '@/httputil/axiosTransform';
 import { checkStatus } from './checkStatus';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';

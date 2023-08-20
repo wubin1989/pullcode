@@ -6,7 +6,7 @@
  *
  * @module Store
  */
-import { CreateAxiosOptions } from "pullcode/src/httputil/axiosTransform";
+import { CreateAxiosOptions } from "@/httputil/axiosTransform";
 import BizService from "./BizService";
 import type { Order } from "./types";
 

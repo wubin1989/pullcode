@@ -6,7 +6,7 @@
  *
  * @module Book
  */
-import { CreateAxiosOptions } from "pullcode/src/httputil/axiosTransform";
+import { CreateAxiosOptions } from "@/httputil/axiosTransform";
 import qs from "qs";
 import BizService from "./BizService";
 import type {

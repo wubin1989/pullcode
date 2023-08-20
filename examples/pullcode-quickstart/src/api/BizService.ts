@@ -3,8 +3,8 @@
 * You can edit it as your need.
 */
 import { merge } from 'lodash-es';
-import { CreateAxiosOptions, VAxios } from 'pullcode/src/httputil/Axios';
-import { RequestOptions } from 'pullcode/src/types/axios';
+import { CreateAxiosOptions, VAxios } from '@/httputil/Axios';
+import { RequestOptions } from '@/types/axios';
 
 const defaultOptions: CreateAxiosOptions = {
   requestOptions: {
