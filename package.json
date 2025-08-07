@@ -1,13 +1,49 @@
 {
   "name": "pullcode",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "",
+  "main": "dist/index.js",
+  "module": "dist/esm/httputil/Axios.js",
+  "types": "dist/esm/httputil/Axios.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/httputil/Axios.js",
+      "require": "./dist/httputil/Axios.js"
+    },
+    "./dist/httputil/Axios": {
+      "import": "./dist/esm/httputil/Axios.js",
+      "require": "./dist/httputil/Axios.js"
+    },
+    "./dist/esm/httputil/Axios": {
+      "import": "./dist/esm/httputil/Axios.js",
+      "require": "./dist/httputil/Axios.js"
+    },
+    "./dist/types/axios": {
+      "import": "./dist/esm/types/axios.js",
+      "require": "./dist/types/axios.js"
+    },
+    "./dist/esm/types/axios": {
+      "import": "./dist/esm/types/axios.js",
+      "require": "./dist/types/axios.js"
+    },
+    "./dist/httputil/axiosTransform": {
+      "import": "./dist/esm/httputil/axiosTransform.js",
+      "require": "./dist/httputil/axiosTransform.js"
+    },
+    "./dist/esm/httputil/axiosTransform": {
+      "import": "./dist/esm/httputil/axiosTransform.js",
+      "require": "./dist/httputil/axiosTransform.js"
+    }
+  },
   "bin": {
     "pullcode": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "build": "tsc && cp ./src/generators/*.ejs ./dist/generators",
+    "build": "tsc && tsc -p tsconfig.esm.json && cp -r ./src/generators ./dist/ && cp -r ./src/types ./dist/ && cp -r ./src/enums ./dist/ && cp -r ./src/httputil ./dist/ && cp -r ./src/types ./dist/esm/",
     "test": "ts-node src/test/index.ts",
     "lint": "ejslint src/generators/*.ejs"
   },

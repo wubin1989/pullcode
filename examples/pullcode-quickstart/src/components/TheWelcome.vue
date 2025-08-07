@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { petService } from "@/api/PetService";
-import { bookService } from "@/test-api/BookService";
 import { Pet, PetStatusEnum } from "@/api/types";
-import {
-  GetBookPageResp,
-  Page,
-  PostBookPageReq,
-  PostBookPageResp,
-} from "@/test-api/types";
 import { ref } from "vue";
 
 const columns = [
@@ -48,38 +41,6 @@ petService
   .then((resp: Pet[]) => {
     dataSource.value = resp;
     loading.value = false;
-  });
-
-bookService
-  .getBookPage({
-    name: "aaa",
-    author: "bbbb",
-    page: {
-      pageNo: 2,
-      size: 15,
-      orders: [
-        {
-          col: "created_at",
-          sort: "desc",
-        },
-        {
-          col: "name",
-          sort: "asc",
-        },
-      ],
-    } as Page,
-  })
-  .then((resp: GetBookPageResp) => {
-    console.log(resp);
-  });
-
-bookService
-  .postBookPage({
-    author: "ddd",
-    name: "ccc",
-  } as PostBookPageReq)
-  .then((resp: PostBookPageResp) => {
-    console.log(resp);
   });
 </script>
 

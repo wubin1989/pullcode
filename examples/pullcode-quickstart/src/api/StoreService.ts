@@ -6,7 +6,7 @@
  *
  * @module Store
  */
-import { CreateAxiosOptions } from "@/httputil/axiosTransform";
+import { CreateAxiosOptions } from "pullcode/dist/esm/httputil/axiosTransform";
 import BizService from "./BizService";
 import type { Order } from "./types";
 
@@ -18,8 +18,8 @@ export class StoreService extends BizService {
   /**
    * GET /store/inventory
    *
-   * Returns pet inventories by status
-   * Returns a map of status codes to quantities
+   * Returns pet inventories by status.
+   * Returns a map of status codes to quantities.
    * @returns Promise<any> successful operation
    */
   getStoreInventory(): Promise<any> {
@@ -29,8 +29,8 @@ export class StoreService extends BizService {
   /**
    * POST /store/order
    *
-   * Place an order for a pet
-   * Place a new order in the store
+   * Place an order for a pet.
+   * Place a new order in the store.
    * @param payload
    * @returns Promise<Order> successful operation
    */
@@ -41,7 +41,7 @@ export class StoreService extends BizService {
   /**
    * GET /store/order/${params.orderId}
    *
-   * Find purchase order by ID
+   * Find purchase order by ID.
    * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
    * @param orderId ID of order that needs to be fetched
    * @returns Promise<Order> successful operation
@@ -53,8 +53,8 @@ export class StoreService extends BizService {
   /**
    * DELETE /store/order/${params.orderId}
    *
-   * Delete purchase order by ID
-   * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+   * Delete purchase order by identifier.
+   * For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
    * @param orderId ID of the order that needs to be deleted
    * @returns Promise<any>
    */

@@ -1,0 +1,1 @@
+{"version":3,"file":"helper.d.ts","sourceRoot":"","sources":["../../../src/httputil/helper.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,UAAU,EAAE,MAAM,gBAAgB,CAAC;AAI5C,wBAAgB,aAAa,CAAC,CAAC,SAAS,OAAO,EAC7C,IAAI,EAAE,OAAO,EACb,OAAO,EAAE,CAAC,GACT,CAAC,SAAS,IAAI,GAAG,MAAM,GAAG,MAAM,CAAC;AAapC;;GAEG;AACH,wBAAgB,iBAAiB,CAAC,MAAM,EAAE,UAAU,QAwBnD"}

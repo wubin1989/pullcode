@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "es2015",
+      "outDir": "dist/esm",
+      "declaration": true,
+      "declarationMap": true
+    },
+    "include": [
+      "src/httputil/**/*.ts",
+      "src/types/**/*.ts",
+      "src/enums/**/*.ts"
+    ],
+    "exclude": [
+      "src/index.ts",
+      "src/generators/**/*.ts",
+      "src/models/**/*.ts",
+      "src/test/**/*.ts"
+    ]
+}

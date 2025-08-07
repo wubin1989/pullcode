@@ -25,19 +25,6 @@ export enum OrderStatusEnum {
   APPROVED = "approved",
   DELIVERED = "delivered",
 }
-export interface Customer {
-  id: number;
-  username: string;
-  address: Address[];
-}
-
-export interface Address {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-
 export interface Category {
   id: number;
   name: string;

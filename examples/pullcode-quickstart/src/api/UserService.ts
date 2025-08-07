@@ -6,8 +6,8 @@
  *
  * @module User
  */
-import { CreateAxiosOptions } from "@/httputil/axiosTransform";
-import qs from "qs";
+import { CreateAxiosOptions } from "pullcode/dist/esm/httputil/axiosTransform";
+import * as qs from "qs";
 import BizService from "./BizService";
 import type { User } from "./types";
 
@@ -19,20 +19,20 @@ export class UserService extends BizService {
   /**
    * POST /user
    *
-   * Create user
+   * Create user.
    * This can only be done by the logged in user.
    * @param payload Created user object
-   * @returns Promise<any>
+   * @returns Promise<User> successful operation
    */
-  postUser(payload: User): Promise<any> {
+  postUser(payload: User): Promise<User> {
     return this.getAxios().post(`/user`, payload, {});
   }
 
   /**
    * POST /user/createWithList
    *
-   * Creates list of users with given input array
-   * Creates list of users with given input array
+   * Creates list of users with given input array.
+   * Creates list of users with given input array.
    * @param payload
    * @returns Promise<User> Successful operation
    */
@@ -43,7 +43,8 @@ export class UserService extends BizService {
   /**
    * GET /user/login
    *
-   * Logs user into the system
+   * Logs user into the system.
+   * Log into the system.
    * @param username The user name for login
    * @param password The password for login in clear text
    * @returns Promise<string> successful operation
@@ -64,7 +65,8 @@ export class UserService extends BizService {
   /**
    * GET /user/logout
    *
-   * Logs out current logged in user session
+   * Logs out current logged in user session.
+   * Log user out of the system.
    * @returns Promise<any>
    */
   getUserLogout(): Promise<any> {
@@ -74,8 +76,9 @@ export class UserService extends BizService {
   /**
    * GET /user/${params.username}
    *
-   * Get user by user name
-   * @param username The name that needs to be fetched. Use user1 for testing.
+   * Get user by user name.
+   * Get user detail based on username.
+   * @param username The name that needs to be fetched. Use user1 for testing
    * @returns Promise<User> successful operation
    */
   getUserParamsUsername(params: { username: string }): Promise<User> {
@@ -85,7 +88,7 @@ export class UserService extends BizService {
   /**
    * PUT /user/${params.username}
    *
-   * Update user
+   * Update user resource.
    * This can only be done by the logged in user.
    * @param payload Update an existent user in the store
    * @param username name that need to be deleted
@@ -103,7 +106,7 @@ export class UserService extends BizService {
   /**
    * DELETE /user/${params.username}
    *
-   * Delete user
+   * Delete user resource.
    * This can only be done by the logged in user.
    * @param username The name that needs to be deleted
    * @returns Promise<any>

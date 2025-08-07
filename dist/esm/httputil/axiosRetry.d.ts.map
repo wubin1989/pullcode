@@ -1,0 +1,1 @@
+{"version":3,"file":"axiosRetry.d.ts","sourceRoot":"","sources":["../../../src/httputil/axiosRetry.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAClD;;GAEG;AAEH,qBAAa,UAAU;IACrB;;OAEG;IACH,KAAK,CAAC,aAAa,EAAE,aAAa,EAAE,KAAK,EAAE,UAAU;IAWrD;;OAEG;IACH,OAAO,CAAC,KAAK;CAGd"}

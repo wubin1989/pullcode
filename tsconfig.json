@@ -4,13 +4,16 @@
       "outDir": "dist",
       "target": "es6",
       "module": "commonjs",
+      "moduleResolution": "node",
       "sourceMap": true,
       "types": ["node"],
       "typeRoots": ["./node_modules/@types/", "src/types"],
       "noImplicitAny": false,
       "skipLibCheck": true,
       "strict": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true
     },
     "include": [
       "src/**/*.ts",
