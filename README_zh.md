@@ -201,6 +201,29 @@ petService.getPetFindByStatus({
 </script>
 ```
 
+## 注意事项
+tsconfig.json里的compilerOptions必须加"importsNotUsedAsValues": "remove"配置项，允许import类型不加type，就是允许直接import xxx类型 from xxx，不用import type也可以。
+```json
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove"
+  },
+
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    }
+  ]
+}
+```
+
 ## 姐妹项目
 
 - [go-doudou](https://github.com/unionj-cloud/go-doudou): 一个轻量级的go语言微服务开发框架。它同时支持开发单体应用。目前仅支持RESTful服务。
